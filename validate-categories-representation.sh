@@ -24,7 +24,6 @@ while IFS= read -r taggedFileName; do
         possibleMandatoryTagsNames=$(cat $CATEGORIES_DIR/$mandatoryCategory.txt)
 
         # Get the file names representing tags of the file
-        # fileTagFileNames=$(grep -Elr "^$taggedFileName$" "$TAGS_DIR")
         fileTagFileNames=$(grep -lr "$taggedFileName" "$TAGS_DIR")
 
         mandatoryCategoryIsRespected=false
