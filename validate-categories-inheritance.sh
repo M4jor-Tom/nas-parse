@@ -80,7 +80,7 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
     motherCategory=$(basename $motherCategoryPath | rev | cut -d "." -f 2 | rev)
 
     # For daughterCategory of the motherCategory (inside motherCategoryPath)
-    while IFS= read -r daughterCategory; do
+    for daughterCategory in $(cat $motherCategoryPath); do
 
         echo [RULE] Tags of category [$motherCategory] must inherit from a tag of category [$daughterCategory]
 
@@ -115,7 +115,7 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
 
                 if [[ $fatherTagCategory == $daughterCategory ]]; then
 
-                    if grep -qlE "^$sonTag\$" "$TAGS_INHERITANCE_DIR/$fatherTag.txt"; then
+                    if test -f $TAGS_INHERITANCE_DIR/$fatherTag.txt && grep -qlE "^$sonTag\$" "$TAGS_INHERITANCE_DIR/$fatherTag.txt"; then
 
                         sonTagsHasDaughterCategoryPath=true
                     fi
@@ -138,7 +138,7 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
             # echo $sonTag is a $motherCategory of $fatherTagCategory $fatherTag
 
         done < $TAGS_CATEGORIES_DIR/$motherCategory.txt
-    done < $motherCategoryPath
+    done
 done
 
 echo
