@@ -7,6 +7,13 @@ echo
 echo " --- [TAGS COUNT PRINTING] --- "
 echo
 
+if ! [[ -d $COUNTS_DIR ]]; then
+
+    echo "$COUNTS_DIR dir not found."
+    echo "Have you called show-statistics.sh (or count-apparitions.sh before) ?"
+    exit 1
+fi
+
 tagsCountsArray=()
 for tagsApparitionCountPath in $COUNTS_DIR/*; do
 
