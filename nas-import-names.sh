@@ -17,6 +17,9 @@ filesCount=$(wc -l < $FILES_NAMES)
 echo
 echo " --- [FILES NAMES IMPORTING] --- "
 echo $filesCount files names imported
-echo Following files have multiple whitespaces that must be trimmed
-echo to avoid breaking other validation algorithms:
+echo Files with multiple whitespaces:
 grep -E " {2,}" $FILES_NAMES
+
+echo Files with square brackets:
+grep -E "\[" $FILES_NAMES
+grep -E "\]" $FILES_NAMES
