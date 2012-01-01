@@ -15,7 +15,7 @@ echo " --- [TAGS LISTING] --- "
 echo Files scanned:
 
 # Iterating through valid files names
-while read validBaseName; do
+while IFS= read -r validBaseName; do
 
     # Counting how many tags has a video
     tagsCount=$(echo $validBaseName | grep -o '{' | wc -l)

@@ -19,12 +19,12 @@ for inheritanceFile in $INHERITANCE_DIR/*; do
     motherTag=$(basename $inheritanceFile | cut -d "." -f 1)
 
     # Read its children tags
-    while read childTag; do
+    while IFS= read -r childTag; do
 
         # $childTag is a kind of $motherTag
 
         # For each video tagged with a child tag
-        while read childTaggedVideoName; do
+        while IFS= read -r childTaggedVideoName; do
 
             # $childTaggedVideoName is tagged with $childTag
 
