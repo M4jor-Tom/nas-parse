@@ -21,7 +21,9 @@ while read taggedFileName; do
         possibleMandatoryTagsNames=$(cat $CATEGORIES_DIR/$mandatoryCategory.txt)
 
         # Get the file names representing tags of the file
-        fileTagFileNames=$(grep -lr "$taggedFileName" "$TAGS_DIR")
+        fileTagFileNames=$(grep -Elr "^$taggedFileName$" "$TAGS_DIR")
+
+        mandatoryCategoryIsRespected=false
 
         # For each tag file name representing the file
         for fileTagFileName in $fileTagFileNames; do
@@ -32,8 +34,14 @@ while read taggedFileName; do
             # If the tag name is a possible mandatoryCategory tag name 
             if [[ " ${possibleMandatoryTagsNames[*]} " =~ [[:space:]]${fileTag}[[:space:]] ]]; then
 
-                echo $fileTag satisfies $mandatoryCategory
+                # echo $fileTag satisfies $mandatoryCategory
+                mandatoryCategoryIsRespected=true
             fi
         done
+
+        if [[ $mandatoryCategoryIsRespected = false ]]; then
+
+            echo $taggedFileName does not include [$mandatoryCategory] category
+        fi
     done < $MANDATORY_CATEGORIES_FILE
 done < $TAGGED_BASE_NAMES_FILE
