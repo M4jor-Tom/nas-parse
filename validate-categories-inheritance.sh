@@ -29,6 +29,8 @@ TAGS_INHERITANCE_DIR=tags-inheritance
 echo
 echo " --- [VALIDATION FOR CATEGORIES INHERITANCE] --- "
 
+exitCode=0
+
 # For each category which implies to have others (children)
 for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
 
@@ -69,6 +71,7 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
             if [[ $sonTagsHasDaughterCategoryPath = false ]]; then
 
                 echo {$sonTag} does not have a [$daughterCategory] but it\'s a [$motherCategory]
+                exitCode=1
             fi
 
             # echo $sonTag is a $motherCategory of $fatherTagCategory $fatherTag
@@ -76,3 +79,5 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
         done < $TAGS_CATEGORIES_DIR/$motherCategory.txt
     done < $motherCategoryPath
 done
+
+exit $exitCode
