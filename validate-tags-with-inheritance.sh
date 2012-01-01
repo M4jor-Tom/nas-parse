@@ -20,36 +20,40 @@ for inheritanceFile in $INHERITANCE_DIR/*; do
     # Get the mother tag from its file name
     motherTag=$(basename $inheritanceFile | cut -d "." -f 1)
 
-    # Read its children tags
-    while IFS= read -r childTag; do
+    if [[ -f $TAGS_DIR/$motherTag.txt ]]; then
 
-        # $childTag is a kind of $motherTag
+        # Read its children tags
+        while IFS= read -r childTag; do
 
-        if ! [[ -f $TAGS_DIR/$childTag.txt ]]; then
+            # $childTag is a kind of $motherTag
 
-            exitCode=1
+            if ! [[ -f $TAGS_DIR/$childTag.txt ]]; then
 
-            echo {$childTag} not found amongst file names\' tags
+                exitCode=1
 
-        else
+                echo {$childTag} not found amongst file names\' tags
 
-            # For each video tagged with a child tag
-            while IFS= read -r childTaggedVideoName; do
+            else
 
-                # $childTaggedVideoName is tagged with $childTag
+                # For each video tagged with a child tag
+                while IFS= read -r childTaggedVideoName; do
 
-                # If childTaggedVideoName is not in $TAGS_DIR/$motherTag file
-                if ! grep -qr "^$childTaggedVideoName$" $TAGS_DIR/$motherTag.txt; then
+                    # $childTaggedVideoName is tagged with $childTag
 
-                    exitCode=1
+                    # If childTaggedVideoName is not in $TAGS_DIR/$motherTag file
 
-                    echo $childTaggedVideoName is tagged with {$childTag} but not with {$motherTag}
+                    if ! grep -qr "^$childTaggedVideoName$" $TAGS_DIR/$motherTag.txt; then
 
-                    ((inheritanceErrorsCount++))
-                fi
-            done < $TAGS_DIR/$childTag.txt
-        fi
-    done < $inheritanceFile
+                        exitCode=1
+
+                        echo $childTaggedVideoName is tagged with {$childTag} but not with {$motherTag}
+
+                        ((inheritanceErrorsCount++))
+                    fi
+                done < $TAGS_DIR/$childTag.txt
+            fi
+        done < $inheritanceFile
+    fi
 done
 
 echo $inheritanceErrorsCount inheritance errors found
