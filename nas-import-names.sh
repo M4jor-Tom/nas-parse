@@ -8,4 +8,4 @@ mkdir -p $GENERATED_DIR
 
 rm -rf $FILES_NAMES
 
-ssh Tom@192.168.1.126 "find $NAS_TARGETTED_DIR" > $FILES_NAMES
+ssh $(cat ssh-host.txt) "find $NAS_TARGETTED_DIR/*/*.mp4" > $FILES_NAMES
