@@ -17,3 +17,11 @@ awk -F "/" "$VALID_AWK_SRC {print \$NF}" $NAMES_FILE > $VALID_BASE_NAMES_FILE
 
 # Find invalid files names
 awk -F "/" "$INVALID_AWK_SRC {print \$NF}" $NAMES_FILE > $INVALID_BASE_NAMES_FILE
+
+validFilesCount=$(wc -l < $VALID_BASE_NAMES_FILE)
+invalidFilesCount=$(wc -l < $INVALID_BASE_NAMES_FILE)
+
+echo
+echo " --- [TAGS PARSING] --- "
+echo Valid files: $validFilesCount
+echo Invalid files: $invalidFilesCount

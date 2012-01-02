@@ -7,6 +7,13 @@ TAGS_DIR=$GENERATION_DIR/tags
 rm -rf $TAGS_DIR
 mkdir -p $TAGS_DIR
 
+validFilesIndex=0
+validFilesCount=$(wc -l < $VALID_NAMES_FILE)
+
+echo
+echo " --- [TAGS LISTING] --- "
+echo Files scanned:
+
 # Iterating through valid files names
 while read validBaseName; do
 
@@ -27,4 +34,12 @@ while read validBaseName; do
             echo $validBaseName >> $TAGS_DIR/$tag.txt
         fi
     done;
+
+    ((validFilesIndex++))
+
+    echo $validFilesIndex / $validFilesCount
+    echo -e "\033[2A"
+
 done < $VALID_NAMES_FILE
+
+echo
