@@ -12,7 +12,7 @@ for tagFile in $TAGS_DIR/*; do
 
     tag=$(basename $tagFile | rev | cut -c 5- | rev)
 
-    if ! grep -qr $tag $CATEGORIES_DIR; then
+    if ! grep -Eqr "^$tag$" $CATEGORIES_DIR; then
 
         # Tag in nas not found amongst
         # those in categories
