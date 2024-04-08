@@ -5,7 +5,7 @@ TAGS_DIR=$GENERATION_DIR/tags
 CATEGORIES_DIR=tags-categories
 
 echo
-echo " --- [TAGS VALIDATION] --- "
+echo " --- [TAGS CATEGORIES VALIDATION] --- "
 
 invalidTags=0
 for tagFile in $TAGS_DIR/*; do
