@@ -12,6 +12,7 @@ echo
 echo " --- [TAGS INHERITANCE VALIDATION] --- "
 
 # For each mother tag's file
+inheritanceErrorsCount=0
 for inheritanceFile in $INHERITANCE_DIR/*; do
 
     # Get the mother tag from its file name
@@ -31,7 +32,11 @@ for inheritanceFile in $INHERITANCE_DIR/*; do
             if ! grep -qr "^$childTaggedVideoName$" $TAGS_DIR/$motherTag.txt; then
 
                 echo $childTaggedVideoName is tagged with {$childTag} but not with {$motherTag}
+
+                ((inheritanceErrorsCount++))
             fi
         done < $TAGS_DIR/$childTag.txt
     done < $inheritanceFile
 done
+
+echo $inheritanceErrorsCount inheritance errors found
