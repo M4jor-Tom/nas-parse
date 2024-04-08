@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# GETTING FILES NAMES FROM NAS
+
 GENERATED_DIR=generated
 FILES_NAMES=$GENERATED_DIR/files-names.txt
 NAS_TARGETTED_DIR=$(cat nas-dir.txt)

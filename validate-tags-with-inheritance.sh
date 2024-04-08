@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# VERIFY THAT EACH CHILD TAGGED VIDEO IS ALSO MOTHER TAGGED
+
 INHERITANCE_DIR=tags-inheritance
 CATEGORIES_DIR=tags-categories
 
