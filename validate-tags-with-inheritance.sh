@@ -2,8 +2,8 @@
 
 # VERIFY THAT EACH CHILD TAGGED VIDEO IS ALSO MOTHER TAGGED
 
-INHERITANCE_DIR=tags-inheritance
-CATEGORIES_DIR=tags-categories
+INHERITANCE_DIR=rules/tags-inheritance
+CATEGORIES_DIR=rules/tags-categories
 
 GENERATION_DIR=generated
 TAGS_DIR=$GENERATION_DIR/tags

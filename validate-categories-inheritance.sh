@@ -3,9 +3,9 @@
 # VALIDATE THAT TAGS INHERITANCE ARE SET CORRECTLY
 # BY CHECKING RULESETS DEFINED FOR THEIR CATEGORIES
 
-CATEGORIES_INHERITANCE_DIR=categories-inheritance
-TAGS_CATEGORIES_DIR=tags-categories
-TAGS_INHERITANCE_DIR=tags-inheritance
+CATEGORIES_INHERITANCE_DIR=rules/categories-inheritance
+TAGS_CATEGORIES_DIR=rules/tags-categories
+TAGS_INHERITANCE_DIR=rules/tags-inheritance
 
 # Neat thing here:
 # a FATHER tag must be of the CHILD category, and

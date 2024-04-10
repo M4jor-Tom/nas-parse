@@ -5,8 +5,8 @@
 GENERATION_DIR=generated
 TAGGED_BASE_NAMES_FILE=$GENERATION_DIR/valid-base-names.txt
 TAGS_DIR=$GENERATION_DIR/tags
-MANDATORY_CATEGORIES_FILE=mandatory-categories.txt
-CATEGORIES_DIR=tags-categories
+MANDATORY_CATEGORIES_FILE=rules/mandatory-categories.txt
+CATEGORIES_DIR=rules/tags-categories
 
 echo
 echo " --- [CATEGORIES REPRESENTATION VALIDATION] --- "

@@ -4,7 +4,7 @@
 
 GENERATION_DIR=generated
 TAGS_DIR=$GENERATION_DIR/tags
-CATEGORIES_DIR=tags-categories
+CATEGORIES_DIR=rules/tags-categories
 
 echo
 echo " --- [TAGS CATEGORIES VALIDATION] --- "
