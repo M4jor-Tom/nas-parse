@@ -57,6 +57,13 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
                 fatherTag=$(basename $fatherTagPath | rev | cut -d "." -f 2 | rev)
 
                 fatherTagCategoryPath=$(grep -Elr "^$fatherTag$" $TAGS_CATEGORIES_DIR)
+
+                if [[ $fatherTagCategoryPath == "" ]]; then
+
+                    echo $fatherTag does not have a category
+                    exit 1
+                fi
+
                 fatherTagCategory=$(basename $fatherTagCategoryPath | rev | cut -d "." -f 2 | rev)
 
                 if [[ $fatherTagCategory == $daughterCategory ]]; then
