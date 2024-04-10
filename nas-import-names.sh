@@ -18,5 +18,5 @@ echo
 echo " --- [FILES NAMES IMPORTING] --- "
 echo $filesCount files names imported
 echo Following files have multiple whitespaces that must be trimmed
-echo to avoid breaking other validation algorothms:
+echo to avoid breaking other validation algorithms:
 grep -E " {2,}" $FILES_NAMES
