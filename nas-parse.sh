@@ -1,6 +1,6 @@
 #!/bin/bash
 
-bash validate-categories-inheritance.sh
+./validate-categories-inheritance.sh
 
 if [[ $? -eq 1 ]]; then
 
@@ -9,11 +9,11 @@ if [[ $? -eq 1 ]]; then
     exit
 fi
 
-bash nas-import-names.sh
-bash split-tagged-and-not-names.sh
-bash list-tags.sh
-bash validate-tags-with-categories.sh
-bash validate-tags-with-inheritance.sh
-bash validate-categories-representation.sh
+./nas-import-names.sh
+./split-tagged-and-not-names.sh
+./list-tags.sh
+./validate-tags-with-categories.sh
+./validate-tags-with-inheritance.sh
+./validate-categories-representation.sh
 
 echo
