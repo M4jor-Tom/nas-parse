@@ -23,19 +23,26 @@ for inheritanceFile in $INHERITANCE_DIR/*; do
 
         # $childTag is a kind of $motherTag
 
-        # For each video tagged with a child tag
-        while IFS= read -r childTaggedVideoName; do
+        if ! [[ -f $TAGS_DIR/$childTag.txt ]]; then
 
-            # $childTaggedVideoName is tagged with $childTag
+            echo {$childTag} not found amongst file names\' tags
 
-            # If childTaggedVideoName is not in $TAGS_DIR/$motherTag file
-            if ! grep -qr "^$childTaggedVideoName$" $TAGS_DIR/$motherTag.txt; then
+        else
 
-                echo $childTaggedVideoName is tagged with {$childTag} but not with {$motherTag}
+            # For each video tagged with a child tag
+            while IFS= read -r childTaggedVideoName; do
 
-                ((inheritanceErrorsCount++))
-            fi
-        done < $TAGS_DIR/$childTag.txt
+                # $childTaggedVideoName is tagged with $childTag
+
+                # If childTaggedVideoName is not in $TAGS_DIR/$motherTag file
+                if ! grep -qr "^$childTaggedVideoName$" $TAGS_DIR/$motherTag.txt; then
+
+                    echo $childTaggedVideoName is tagged with {$childTag} but not with {$motherTag}
+
+                    ((inheritanceErrorsCount++))
+                fi
+            done < $TAGS_DIR/$childTag.txt
+        fi
     done < $inheritanceFile
 done
 

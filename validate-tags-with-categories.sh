@@ -24,4 +24,15 @@ for tagFile in $TAGS_DIR/*; do
     fi
 done
 
+for categoryPath in $CATEGORIES_DIR/*; do
+
+    while IFS= read -r tag; do
+
+        if ! [[ -f $TAGS_DIR/$tag.txt ]]; then
+
+            echo Ghost tag: {$tag}
+        fi
+    done < $categoryPath
+done
+
 echo $invalidTags invalid tags found

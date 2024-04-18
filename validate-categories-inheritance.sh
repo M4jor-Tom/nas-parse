@@ -41,6 +41,8 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
 
         echo [RULE] Tags of category [$motherCategory] must inherit from a tag of category [$daughterCategory]
 
+        motherCategoryElementsCount=$(cat $TAGS_CATEGORIES_DIR/$motherCategory.txt | wc -l)
+        motherCategoryElementsIndex=0
         while IFS= read -r sonTag; do
 
             # echo {$sonTag} must have a [$daughterCategory] because it\'s a [$motherCategory]
@@ -81,10 +83,18 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
                 exitCode=1
             fi
 
+            ((motherCategoryElementsIndex++))
+
+            echo $motherCategoryElementsIndex / $motherCategoryElementsCount
+            echo -e "\033[2A"
+
             # echo $sonTag is a $motherCategory of $fatherTagCategory $fatherTag
 
         done < $TAGS_CATEGORIES_DIR/$motherCategory.txt
     done < $motherCategoryPath
 done
+
+echo
+echo
 
 exit $exitCode
