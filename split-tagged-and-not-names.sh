@@ -25,5 +25,5 @@ invalidFilesCount=$(wc -l < $INVALID_BASE_NAMES_FILE)
 
 echo
 echo " --- [TAGS PARSING] --- "
-echo Valid files: $validFilesCount
-echo Invalid files: $invalidFilesCount
+echo Tagged files: $validFilesCount
+echo Non-tagged files: $invalidFilesCount

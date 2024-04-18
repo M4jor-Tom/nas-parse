@@ -10,6 +10,8 @@ CATEGORIES_DIR=rules/tags-categories
 
 echo
 echo " --- [CATEGORIES REPRESENTATION VALIDATION] --- "
+echo Mandatory categories:
+cat $MANDATORY_CATEGORIES_FILE
 
 # For each tagged file name
 invalidTaggedFileNameCount=0
@@ -55,4 +57,4 @@ while IFS= read -r taggedFileName; do
     fi
 done < $TAGGED_BASE_NAMES_FILE
 
-echo $invalidTaggedFileNameCount invalid tagged files names
+echo $invalidTaggedFileNameCount non-representing mandatory categories files names

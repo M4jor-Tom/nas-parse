@@ -24,6 +24,7 @@ for tagFile in $TAGS_DIR/*; do
     fi
 done
 
+ghostTags=0
 for categoryPath in $CATEGORIES_DIR/*; do
 
     while IFS= read -r tag; do
@@ -31,8 +32,11 @@ for categoryPath in $CATEGORIES_DIR/*; do
         if ! [[ -f $TAGS_DIR/$tag.txt ]]; then
 
             echo Ghost tag: {$tag}
+
+            ((ghostTags++))
         fi
     done < $categoryPath
 done
 
-echo $invalidTags invalid tags found
+echo $invalidTags unkown tags found
+echo $ghostTags ghost tags found
