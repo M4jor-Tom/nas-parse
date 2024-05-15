@@ -3,9 +3,15 @@
 # VALIDATE THAT TAGS INHERITANCE ARE SET CORRECTLY
 # BY CHECKING RULESETS DEFINED FOR THEIR CATEGORIES
 
+GENERATION_DIR=generated
+
 CATEGORIES_INHERITANCE_DIR=rules/categories-inheritance
 TAGS_CATEGORIES_DIR=rules/tags-categories
 TAGS_INHERITANCE_DIR=rules/tags-inheritance
+
+LAST_SUM_FILE=$GENERATION_DIR/last-sum.txt
+LAST_VALID_SUM_FILE=$GENERATION_DIR/last-valid-sum.txt
+LAST_INVALID_SUM_FILE=$GENERATION_DIR/last-invalid-sum.txt
 
 # Neat thing here:
 # a FATHER tag must be of the CHILD category, and
@@ -25,6 +31,35 @@ TAGS_INHERITANCE_DIR=rules/tags-inheritance
 # There is an error to detect here if $TAGS_INHERITANCE_DIR/adult.txt does not contain "someone_cool"
 # There is an error to detect here if $TAGS_INHERITANCE_DIR/$fatherTag.txt does not contain "$sonTag"
 # -> person_with_no_age has no category of type age
+
+./identify-ruleset.sh $LAST_SUM_FILE
+lastSum=$(cat $LAST_SUM_FILE)
+if [[ -f $LAST_VALID_SUM_FILE ]]; then
+
+    lastValidSum=$(cat $LAST_VALID_SUM_FILE)
+
+    if [[ $lastSum == $lastValidSum ]]; then
+
+        echo The current ruleset is the same valid as before.
+        echo Using cached sum: $lastValidSum
+        echo
+        echo
+        exit 0
+    fi
+
+elif [[ -f $LAST_INVALID_SUM_FILE ]]; then
+
+    lastInvalidSum=$(cat $LAST_INVALID_SUM_FILE)
+    
+    if [[ $lastSum == $lastInvalidSum ]]; then
+
+        echo The current ruleset is the same invalid as before.
+        echo Using cached sum: $lastInvalidSum
+        echo
+        echo
+        exit 1
+    fi
+fi
 
 echo
 echo " --- [VALIDATION FOR CATEGORIES INHERITANCE] --- "
@@ -93,6 +128,19 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
         done < $TAGS_CATEGORIES_DIR/$motherCategory.txt
     done < $motherCategoryPath
 done
+
+echo
+
+if [[ $exitCode -eq 0 ]]; then
+
+    echo Ruleset valid, caching its sum...
+    ./identify-ruleset.sh $LAST_VALID_SUM_FILE
+
+elif [[ $exitCode -eq 1 ]]; then
+
+    echo Ruleset not valid, caching its sum...
+    ./identify-ruleset.sh $LAST_INVALID_SUM_FILE
+fi
 
 echo
 echo

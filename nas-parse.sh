@@ -1,5 +1,9 @@
 #!/bin/bash
 
+GENERATION_DIR=generated
+
+mkdir -p $GENERATION_DIR
+
 ./validate-categories-inheritance.sh
 
 if [[ $? -eq 1 ]]; then
