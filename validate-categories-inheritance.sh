@@ -124,7 +124,7 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
 
             if [[ $sonTagsHasDaughterCategoryPath = false ]]; then
 
-                log="{$sonTag} does not have a [$daughterCategory] but it\'s a [$motherCategory]"
+                log="{$sonTag} does not have a [$daughterCategory] but it's a [$motherCategory]"
                 echo $log
                 echo $log >> $LOGS_FILE
                 exitCode=1
