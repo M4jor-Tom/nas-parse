@@ -13,6 +13,8 @@ LAST_SUM_FILE=$GENERATION_DIR/last-sum.txt
 LAST_VALID_SUM_FILE=$GENERATION_DIR/last-valid-sum.txt
 LAST_INVALID_SUM_FILE=$GENERATION_DIR/last-invalid-sum.txt
 
+LOGS_FILE=$GENERATION_DIR/$0.log
+
 # Neat thing here:
 # a FATHER tag must be of the CHILD category, and
 # a CHILD tag must be of the MOTHER category
@@ -34,6 +36,10 @@ LAST_INVALID_SUM_FILE=$GENERATION_DIR/last-invalid-sum.txt
 
 ./identify-ruleset.sh $LAST_SUM_FILE
 lastSum=$(cat $LAST_SUM_FILE)
+
+echo
+echo " --- [VALIDATION FOR CATEGORIES INHERITANCE] --- "
+
 if [[ -f $LAST_VALID_SUM_FILE ]]; then
 
     lastValidSum=$(cat $LAST_VALID_SUM_FILE)
@@ -46,8 +52,9 @@ if [[ -f $LAST_VALID_SUM_FILE ]]; then
         echo
         exit 0
     fi
+fi
 
-elif [[ -f $LAST_INVALID_SUM_FILE ]]; then
+if [[ -f $LAST_INVALID_SUM_FILE ]]; then
 
     lastInvalidSum=$(cat $LAST_INVALID_SUM_FILE)
     
@@ -56,13 +63,14 @@ elif [[ -f $LAST_INVALID_SUM_FILE ]]; then
         echo The current ruleset is the same invalid as before.
         echo Using cached sum: $lastInvalidSum
         echo
+        cat $LOGS_FILE
+        echo
         echo
         exit 1
     fi
 fi
 
-echo
-echo " --- [VALIDATION FOR CATEGORIES INHERITANCE] --- "
+rm -f $LOGS_FILE
 
 exitCode=0
 
@@ -97,7 +105,9 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
 
                 if [[ $fatherTagCategoryPath == "" ]]; then
 
-                    echo $fatherTag does not have a category
+                    log="$fatherTag does not have a category"
+                    echo $log
+                    echo $log >> $LOGS_FILE
                     exit 1
                 fi
 
@@ -114,7 +124,9 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
 
             if [[ $sonTagsHasDaughterCategoryPath = false ]]; then
 
-                echo {$sonTag} does not have a [$daughterCategory] but it\'s a [$motherCategory]
+                log="{$sonTag} does not have a [$daughterCategory] but it\'s a [$motherCategory]"
+                echo $log
+                echo $log >> $LOGS_FILE
                 exitCode=1
             fi
 
