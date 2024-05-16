@@ -8,12 +8,12 @@ mkdir -p $GENERATION_DIR
 
 if [[ $? -eq 1 ]]; then
 
-    echo Ruleset not consistent. Aborting further checks
+    echo Ruleset not consistent. Aborting further processes
     echo
     exit
 fi
 
-./nas-import-names.sh
+./fetch-names.sh
 ./split-tagged-and-not-names.sh
 ./list-tags.sh
 ./validate-tags-with-categories.sh
