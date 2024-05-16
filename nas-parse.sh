@@ -20,7 +20,7 @@ fi
 
 if [[ $? -eq 1 ]]; then
 
-    echo Unclassifiable tags and/or ghost tags found. Aborting further checks
+    echo Unclassifiable tags found. Aborting further checks
     echo
     exit
 fi

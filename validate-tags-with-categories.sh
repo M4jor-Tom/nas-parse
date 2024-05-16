@@ -34,8 +34,6 @@ for categoryPath in $CATEGORIES_DIR/*; do
 
         if ! [[ -f $TAGS_DIR/$tag.txt ]]; then
 
-            exitCode=1
-
             echo Ghost tag: {$tag}
 
             ((ghostTags++))
