@@ -6,11 +6,11 @@ mkdir -p $GENERATION_DIR
 
 ./validate-categories-inheritance.sh
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
 
     echo Ruleset not consistent. Aborting further processes
     echo
-    exit
+    exit 1
 fi
 
 ./fetch-names.sh
@@ -18,20 +18,20 @@ fi
 ./list-tags.sh
 ./validate-tags-with-categories.sh
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
 
     echo Unclassifiable tags found. Aborting further checks
     echo
-    exit
+    exit 2
 fi
 
 ./validate-tags-with-inheritance.sh
 
-if [[ $? -eq 1 ]]; then
+if [[ $? -ne 0 ]]; then
 
     echo Some mother tags are forgotten along their child tags. Aborting further checks
     echo
-    exit
+    exit 3
 fi
 
 ./validate-categories-representation.sh
