@@ -15,7 +15,7 @@ TAGS_COUNTING_DIR=$GENERATION_DIR/tags-countings
 FILTERS_DIR=filters
 
 # Output file
-LINKS_INSTRCTIONS_FILE=$GENERATION_DIR/links-instructions.sh
+LINKS_INSTRUCTIONS_FILE=$GENERATION_DIR/links-instructions.sh
 
 # Output file's links generation path
 TAGS_LINKS_DIR=$GENERATION_DIR/tags-links
@@ -92,7 +92,7 @@ function createLink {
 
     # Create the dir containing links to files owning this file
     tagLinksDir=$TAGS_LINKS_DIR/$tag
-    echo "mkdir -p $tagLinksDir" >> $LINKS_INSTRCTIONS_FILE
+    echo "mkdir -p $tagLinksDir" >> $LINKS_INSTRUCTIONS_FILE
 
     if [[ -f $tagLinksDir/$fileBaseName ]]; then
 
@@ -104,23 +104,23 @@ function createLink {
         if [[ $LINKS_TYPE == "symbolic" ]]; then
 
             # Create the link
-            echo "ln -s \"$filePath\" \"$tagLinksDir/$fileBaseName\"" >> $LINKS_INSTRCTIONS_FILE
+            echo "ln -s \"$filePath\" \"$tagLinksDir/$fileBaseName\"" >> $LINKS_INSTRUCTIONS_FILE
         
         else
 
             # Create the link
-            echo "ln \"$filePath\" \"$tagLinksDir/$fileBaseName\"" >> $LINKS_INSTRCTIONS_FILE
+            echo "ln \"$filePath\" \"$tagLinksDir/$fileBaseName\"" >> $LINKS_INSTRUCTIONS_FILE
         fi
     fi
 }
 
 # Remove previous generated instructions script
-rm -f $LINKS_INSTRCTIONS_FILE
+rm -f $LINKS_INSTRUCTIONS_FILE
 
 # Echo instructions file begin
-echo "#!/bin/bash" >> $LINKS_INSTRCTIONS_FILE
-echo "" >> $LINKS_INSTRCTIONS_FILE
-echo "rm -rf $TAGS_LINKS_DIR" >> $LINKS_INSTRCTIONS_FILE
+echo "#!/bin/bash" >> $LINKS_INSTRUCTIONS_FILE
+echo "" >> $LINKS_INSTRUCTIONS_FILE
+echo "rm -rf $TAGS_LINKS_DIR" >> $LINKS_INSTRUCTIONS_FILE
 
 exitCode=0
 
@@ -153,6 +153,6 @@ for tagPath in $TAGS_DIR/*; do
 done
 
 # Specify output instructions files permissions
-chmod 777 $LINKS_INSTRCTIONS_FILE
+chmod 777 $LINKS_INSTRUCTIONS_FILE
 
 exit $exitCode
