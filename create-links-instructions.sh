@@ -90,6 +90,8 @@ function createLink {
     fileBaseName=$2
     filePath=$3
 
+    exitCode=0
+
     # Create the dir containing links to files owning this file
     tagLinksDir=$TAGS_LINKS_DIR/$tag
     echo "mkdir -p $tagLinksDir" >> $LINKS_INSTRUCTIONS_FILE
@@ -112,6 +114,8 @@ function createLink {
             echo "ln \"$filePath\" \"$tagLinksDir/$fileBaseName\"" >> $LINKS_INSTRUCTIONS_FILE
         fi
     fi
+
+    return $exitCode
 }
 
 # Remove previous generated instructions script
