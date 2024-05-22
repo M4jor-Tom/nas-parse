@@ -65,6 +65,9 @@ if [[ $FILTER_TYPE == "apparitions" ]]; then
 
     ./count-apparitions.sh
 
+# In case $FILTER_TYPE == 'filters-dir',
+# check $FILTERS_DIR and its content
+# are present
 elif [[ $FILTER_TYPE == "filters-dir" ]]; then
 
     if ! [[ -d $FILTERS_DIR ]]; then
@@ -80,6 +83,7 @@ elif [[ $FILTER_TYPE == "filters-dir" ]]; then
     fi
 fi
 
+# Order to create a link in output instructions file
 function createLink {
 
     tag=$1
@@ -148,6 +152,7 @@ for tagPath in $TAGS_DIR/*; do
     done < $tagPath
 done
 
+# Specify output instructions files permissions
 chmod 777 $LINKS_INSTRCTIONS_FILE
 
 exit $exitCode
