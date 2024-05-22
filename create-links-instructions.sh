@@ -131,19 +131,19 @@ for tagPath in $TAGS_DIR/*; do
         # Find where is the file located
         filePath=$(grep -r "$fileBaseName" $FILES_PATHS_PATH)
 
-        #echo $tag ?
         # Create link if apparition mode is set and apparitions conditions met
-        #if [[ $FILTER_TYPE == "apparitions" ]] && [[ $(grep -r $tag $TAGS_COUNTING_DIR | wc -l) -gt 0 ]]; then
+        if [[ $FILTER_TYPE == "apparitions" ]]; then
 
-            #echo $tag !
-            #grep -r $tag $TAGS_COUNTING_DIR | wc -l
-            #exitCode=$(createLink "$tag" "$fileBaseName" "$filePath")
+            if grep -Eqr "^$tag$" $TAGS_COUNTING_DIR; then
+
+                exitCode=$(createLink "$tag" "$fileBaseName" "$filePath")
+            fi
 
         # Create link if set to create all links
-        #elif [[ $FILTER_TYPE == "all" ]]; then
+        elif [[ $FILTER_TYPE == "all" ]]; then
 
             exitCode=$(createLink "$tag" "$fileBaseName" "$filePath")
-        #fi
+        fi
 
     done < $tagPath
 done
