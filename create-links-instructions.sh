@@ -11,22 +11,16 @@ FILES_PATHS_PATH=$GENERATION_DIR/files-names.txt
 # Potential input tags-counting dir
 TAGS_COUNTING_DIR=$GENERATION_DIR/tags-countings
 
-# Potential input filters dir
-FILTERS_DIR=filters
-
 # Output file
 LINKS_INSTRUCTIONS_FILE=$GENERATION_DIR/links-instructions.sh
 
 # Output file's links generation path
 TAGS_LINKS_DIR=$GENERATION_DIR/tags-links
 
-# Get links destination root folder
-FILES_DIR=$(cat nas-dir.txt)
-
 # Check the script is called with the minimum possible arguments count
 if [[ "$#" -ne 2 ]]; then
 
-    echo "Usage: $0 <link-type:'symbolic'|'hard'> <filter-type:'all'|'apparitions'|'filters-dir'>"
+    echo "Usage: $0 <link-type:'symbolic'|'hard'> <filter-type:'all'|'apparitions'>"
     exit 1
 fi
 
@@ -41,7 +35,7 @@ if [[ $LINKS_TYPE != "symbolic" ]] && [[ $LINKS_TYPE != "hard" ]]; then
 fi
 
 # Check argument FILTER_TYPE is correctly spelled
-if [[ $FILTER_TYPE != "all" ]] && [[ $FILTER_TYPE != "apparitions" ]] && [[ $FILTER_TYPE != "filters-dir" ]]; then
+if [[ $FILTER_TYPE != "all" ]] && [[ $FILTER_TYPE != "apparitions" ]]; then
 
     echo "Invalid argument for filter-type: $FILTER_TYPE"
     exit 3
@@ -64,23 +58,6 @@ if [[ $FILTER_TYPE == "apparitions" ]]; then
     fi
 
     ./count-apparitions.sh
-
-# In case $FILTER_TYPE == 'filters-dir',
-# check $FILTERS_DIR and its content
-# are present
-elif [[ $FILTER_TYPE == "filters-dir" ]]; then
-
-    if ! [[ -d $FILTERS_DIR ]]; then
-
-        echo "./$FILTERS_DIR/ does not exist"
-        exit 6
-
-    elif ! [[ -f $FILTERS_DIR/*.and.txt ]] && ! [[ -f $FILTERS_DIR/*.or.txt ]]; then
-
-        echo "./$FILTERS_DIR/*.and.txt do not exist and"
-        echo "./$FILTERS_DIR/*.or.txt do not exist"
-        exit 7
-    fi
 fi
 
 # Order to create a link in output instructions file
