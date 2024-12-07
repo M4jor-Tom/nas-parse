@@ -122,17 +122,22 @@ for motherCategoryPath in $CATEGORIES_INHERITANCE_DIR/*; do
                 fi
             done
 
+            log=""
             if [[ $sonTagsHasDaughterCategoryPath = false ]]; then
 
-                log="{$sonTag} does not have a [$daughterCategory] but it's a [$motherCategory]"
-                echo $log
-                echo $log >> $LOGS_FILE
+                errorLog="{$sonTag} does not have a [$daughterCategory] but it's a [$motherCategory]"
+                echo $errorLog
+                echo $errorLog >> $LOGS_FILE
                 exitCode=1
+
+            else
+
+                log="{$sonTag} has a [$daughterCategory] because it's a [$motherCategory]"
             fi
 
             ((motherCategoryElementsIndex++))
 
-            echo $motherCategoryElementsIndex / $motherCategoryElementsCount
+            echo "$motherCategoryElementsIndex / $motherCategoryElementsCount $log               "
             echo -e "\033[2A"
 
             # echo $sonTag is a $motherCategory of $fatherTagCategory $fatherTag
