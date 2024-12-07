@@ -7,6 +7,7 @@ TAGGED_BASE_NAMES_FILE=$GENERATION_DIR/valid-base-names.txt
 TAGS_DIR=$GENERATION_DIR/tags
 MANDATORY_CATEGORIES_FILE=rules/mandatory-categories.txt
 CATEGORIES_DIR=rules/tags-categories
+NON_MANDATORY_TAGS_REPRESENTING_TAGLESS_FILES_NAMES_PATH=$GENERATION_DIR/non-mandatory-tags-representing-tagless-files-names.txt
 
 echo
 echo " --- [CATEGORIES REPRESENTATION VALIDATION] --- "
@@ -48,6 +49,7 @@ while IFS= read -r taggedFileName; do
 
             taggedFileNameIsInvalid=true
             echo $taggedFileName does not include [$mandatoryCategory] category
+            echo $taggedFileName | cut -d ' ' -f 2- >> $NON_MANDATORY_TAGS_REPRESENTING_TAGLESS_FILES_NAMES_PATH
         fi
     done < $MANDATORY_CATEGORIES_FILE
 
